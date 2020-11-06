@@ -1,0 +1,81 @@
+
+#include <stdio.h>
+#define max 5
+#define data_type int
+#include<limits.h>
+typedef struct Queue 
+{
+    data_type arr[max];
+    int rear,front;
+    
+    
+}Queue;
+void init(Queue* queue)
+{
+    queue->rear=-1;
+    queue->front=0;
+}
+void enqueue(Queue* queue, data_type item)
+{
+    if(isFull(queue)==1)
+    {
+    printf("queue is Full");
+    return ;
+    }
+    else
+    {
+    ++(queue->rear);
+    queue->arr[queue->rear]=item;
+    }
+}
+data_type dequeue(Queue* queue) 
+{   
+    if(isEmpty(queue)==1)
+    {
+        printf("queue is empty\n");
+        return -1;
+    }
+    else
+    {
+    return queue->arr[(queue->front)++];
+    }
+}
+int isFull(Queue* queue) 
+{ 
+    if(queue->rear == max-1)
+    return 1;
+    else
+    return 0;
+} 
+int isEmpty(Queue* queue)
+{
+    if(queue->rear==-1)
+    return 1;
+    else
+    return 0;
+}
+int front(Queue* queue) 
+{ 
+    if (isEmpty(queue)) 
+        return INT_MIN; 
+    return queue->arr[queue->front]; 
+} 
+ 
+int rear( Queue* queue) 
+{ 
+    if (isEmpty(queue)) 
+        return INT_MIN; 
+    return queue->arr[queue->rear]; 
+} 
+int main()
+{
+    Queue queue;
+    init(&queue);
+    enqueue(&queue,4);
+    enqueue(&queue,5);
+   
+  //  printf("%d \n",dequeue(&queue));
+    printf("%d  \n",front(&queue));
+     printf("%d \n",rear(&queue));
+    return 0;
+}
