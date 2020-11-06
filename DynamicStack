@@ -1,0 +1,123 @@
+
+#include <stdio.h>
+#include<stdlib.h>
+typedef struct Stack{
+    int top; 
+    unsigned int  cap; 
+    char* arr; 
+    unsigned  int elemsize;
+}stack;
+struct Stack* init(unsigned int cap,unsigned int elemsize) 
+{ 
+    
+  struct Stack*   stack = (struct Stack*)malloc(sizeof(struct Stack)); 
+    stack->cap = cap; 
+    stack->top = -1; 
+    stack->elemsize=elemsize;
+     stack->arr = malloc(stack->cap*elemsize); 
+    return stack;
+}
+void push(struct Stack* stack, char* item) 
+{ 
+     ++(stack->top);
+    if(isFull(stack)==1)
+    {
+    printf("stack overflow\n");
+    return;
+    }
+    else{
+        if(stack->elemsize==4)
+        {
+        int *space=(int*)(item);
+       
+        stack->arr[stack->top]=*space;
+       
+        }
+       else if(stack->elemsize==1)
+        {
+        stack->arr[stack->top]=*item;
+        
+        }
+        else if(stack->elemsize==8)
+        {
+           // printf("yes");
+        double *space=(double*)(item);
+        
+        stack->arr[stack->top]=*space;
+        }
+    }
+  
+}
+void pop(stack* s)
+{
+    if(isEmpty()==1)
+    {
+        printf("stack is Empty\n");
+        return;
+    }
+    else
+    {
+     if(s->elemsize==4)
+    
+    printf("deleted element is : %d ",s->arr[s->top]);
+    
+   else if(s->elemsize==1)
+    
+   printf("deleted element is : %c ",s->arr[s->top]);
+    
+    
+    else if(s->elemsize==8)
+    
+   printf("deleted element is : %d ",s->arr[s->top]);
+
+  
+    --s->top;
+    }
+}
+    
+
+isEmpty(stack* s)
+{
+    if(s->top==-1)
+    return 1;
+    else
+    return 0;
+}
+int isFull(stack* s)
+{
+    if(s->top==s->cap)
+    return 1;
+    else
+    return 0;
+}
+
+int main()
+{
+    
+    
+    stack *sp=init(5,sizeof(int));
+    int i=1;
+    for(;i<10;i++)
+    push(sp,&i);
+  
+    pop(sp);
+    pop(sp);
+  
+  
+     stack *sp2=init(10,sizeof(char));
+    char j='a';
+    for(;j!='h';j++)
+    push(sp2,&j);
+  
+    pop(sp2);
+    pop(sp2);
+  /*
+    stack *sp2=init(10,sizeof(double));
+    double j=89.78;
+   for(;j<99;j++)
+    push(sp2,&j);
+   // printf("%d",sp2->arr[sp2->top]);
+    pop(sp2);
+  */
+    return 0;
+}
