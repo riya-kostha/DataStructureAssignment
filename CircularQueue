@@ -1,0 +1,76 @@
+#include<stdio.h>
+#define max 5
+typedef struct CircularQueue{
+    int front,rear;
+    int arr[max];
+    int count;
+}Cqueue;
+void init(Cqueue* queue)
+{
+    queue->front=0;
+     queue->count=0;
+    queue->rear=-1;
+    
+}
+void enque(Cqueue *queue,int data)
+{
+    if(isFull(queue)==1)
+    {
+    printf("queue is Full\n");
+    return;
+    }
+    else{
+    queue->rear=(queue->rear+1)%max;
+    queue->count++;
+    queue->arr[queue->rear]=data;
+    }
+}
+int deque(Cqueue *queue)
+{
+   
+   int elem;
+    if(isEmpty(queue)==1)
+    {
+    printf("queue is empty\n");
+    return -1;
+    }
+    else{
+        queue->count--;
+     elem=queue->arr[queue->front]; 
+     queue->front=(queue->front+1)%max;
+     return elem;
+    }
+}
+int isFull(Cqueue *queue)
+{
+    if(queue->count==max)
+    return 1;
+    else
+    return 0;
+}
+int isEmpty(Cqueue *queue)
+{
+    if(queue->count==0)
+    return 1;
+    else
+    return 0;
+}
+ int main()
+ {
+   
+    Cqueue queue;
+    init(&queue);
+    enque(&queue,5);
+    enque(&queue,6);
+     enque(&queue,7);
+     enque(&queue,8);
+     enque(&queue,9);
+   
+    printf("%d ",deque(&queue));
+     printf("%d ",deque(&queue));
+     printf("%d ",deque(&queue));
+     printf("%d ",deque(&queue));
+    printf("%d ",deque(&queue));
+         enque(&queue,10);
+     return 0;
+ }
