@@ -19,13 +19,14 @@ struct Stack* init(unsigned int cap,unsigned int elemsize)
 }
 void push(struct Stack* stack, char* item) 
 { 
-     ++(stack->top);
+   
     if(isFull(stack)==1)
     {
     printf("stack overflow\n");
     return;
     }
     else{
+      ++(stack->top);
         if(stack->elemsize==4)
         {
         int *space=(int*)(item);
@@ -85,7 +86,7 @@ isEmpty(stack* s)
 }
 int isFull(stack* s)
 {
-    if(s->top==s->cap)
+    if(s->top==s->cap-1)
     return 1;
     else
     return 0;
