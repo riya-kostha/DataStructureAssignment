@@ -1,7 +1,6 @@
 
-#include <iostream>
-#include<stack>
-#include<vector>  
+#include <stdio.h>
+ 
 typedef struct Node
 {
   int data;
