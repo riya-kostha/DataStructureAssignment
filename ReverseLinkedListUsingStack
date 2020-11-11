@@ -1,0 +1,62 @@
+
+#include <iostream>
+#include<stack>
+#include<vector>  
+typedef struct Node
+{
+  int data;
+ struct Node *next;
+}Node;
+void insertAfter(Node *head,int val)
+{
+   Node *newnode    = (Node*)malloc(sizeof(struct Node));  
+    while(head->next!=NULL)
+    {
+        head=head->next;
+    }
+    newnode->data=val;
+    head->next=newnode;
+    newnode->next=NULL;
+    
+}
+void printList(struct Node* n) 
+{ 
+    while (n != NULL) { 
+        printf(" %d ", n->data); 
+        n = n->next; 
+    } 
+}
+ Node* reverseList(Node* head) {
+    Node *newhead=NULL;
+    std::stack<Node*> st;
+    while(head->next!=NULL)
+    {
+        st.push(head);
+        head=head->next;
+    }
+    newhead=head;
+    Node *tmp=newhead;
+    while(!st.empty())
+    {
+        tmp->next=st.top();
+        tmp=tmp->next;
+        st.pop();
+    }
+    tmp->next=NULL;
+    return newhead;
+}
+int main()
+{
+     Node *head= (Node*)malloc(sizeof(struct Node)); 
+  head->data=8;
+  head->next=NULL;
+  insertAfter(head,9);
+  insertAfter(head,10);
+  insertAfter(head,11);
+  insertAfter(head,12);
+  insertAfter(head,13);
+  insertAfter(head,14);
+ Node *rev= reverseList(head);
+  printList(rev);
+    return 0;
+}
