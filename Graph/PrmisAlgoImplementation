@@ -1,0 +1,84 @@
+#include <iostream>
+#include<limits.h>
+#define V 5
+# define inf 9999
+
+void printSolution(int dist[], int parent[V]) 
+{
+    printf("Vertex \t\t Distance from Source\t\tpath\n"); 
+    for (int i = 0; i < V; i++) 
+    {
+        printf("%d \t\t %d", i, dist[i]);
+           if(i!=0)
+        printf("\t\t\t\t%d",parent[i]);
+        if(i!=0)
+        printf("->%d",i);
+        else
+        std::cout<<"\t\t\tthis is source";
+     std::cout<<"\n";
+       
+
+        }
+      
+        
+} 
+
+   int minDistance(int distance[V],bool confirm[V])
+   {
+       
+       int min=INT_MAX,index;
+       for(int i=0;i<V;i++)
+       {
+           if(!confirm[i]&&distance[i]<min)
+           {
+               min=distance[i];
+               index=i;
+           }
+       }
+       return index;
+   }
+
+    void prims_MST(int graph[V][V])
+    {
+        int parent[V];
+        int distance[V];
+        bool confirm[V];
+        
+        for(int i=0;i<V;i++)
+        {
+            parent[i]=-1;
+            distance[i]=inf;
+            confirm[i]=false;
+        }
+        distance[0]=0;
+        for(int i=0;i<V;i++)
+        {
+            int u=minDistance(distance,confirm);
+            confirm[u]=true;
+            for(int v=0;v<V;v++)
+            {
+                if(!confirm[v]&&distance[u]!=INT_MAX&&graph[u][v]!=inf&&graph[u][v]<distance[v])
+                {
+                    distance[v]=graph[u][v];
+                    parent[v]=u;
+                }
+                
+            }
+        }
+        printSolution(distance,parent);
+    }
+
+int main() 
+{ 
+
+    int graph[V][V] = { { inf, 2, inf, 6, inf },  
+                        { 2, inf, 3, 8, 5 },  
+                        { inf, 3, inf, inf, 7 },  
+                        { 6, 8, inf, inf, 9 },  
+                        { inf, 5, 7, 9, inf } };  
+  
+  
+    prims_MST(graph); 
+  
+    return 0; 
+} 
