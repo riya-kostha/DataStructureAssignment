@@ -1,0 +1,92 @@
+
+#include <stdio.h>
+ 
+typedef struct Node
+{
+  int data;
+ struct Node *next;
+}Node;
+void insertAtBegning(Node** head,int val)
+{
+    Node *newnode=(Node*)malloc(sizeof(Node));
+    newnode->data=val;
+   
+    newnode->next=(*head);
+    (*head)=newnode;
+   
+}
+void insertAfterPerticularNode(int val1,int val2,Node *head)
+{
+    Node *newnode=(Node*)malloc(sizeof(Node));
+    while(head->data!=val1)
+    {
+        head=head->next;
+    }
+    newnode->data=val2;
+    newnode->next=head->next;
+    head->next=newnode;
+}
+void insertAfter(Node *head,int val)
+{
+   Node *newnode    = (Node*)malloc(sizeof(struct Node));  
+    while(head->next!=NULL)
+    {
+        head=head->next;
+    }
+    newnode->data=val;
+    head->next=newnode;
+    newnode->next=NULL;
+    
+}
+void deleteAtEnd(Node *head)
+{
+    Node *tmp=NULL;
+    while(head->next!=NULL)
+    {
+        tmp=head;
+        
+        head=head->next;
+    }
+  
+   tmp->next=NULL;
+    free(head);
+    
+}
+void deleteAtBeg(Node** head)
+{
+    Node *tmp=(*head);
+    (*head)=tmp->next;
+    free(tmp);
+   
+}
+void printList(struct Node* n) 
+{ 
+    while (n != NULL) { 
+        printf(" %d ", n->data); 
+        n = n->next; 
+    } 
+}
+ 
+
+int main()
+{
+
+  Node *head= (Node*)malloc(sizeof(struct Node)); 
+  head->data=8;
+  head->next=NULL;
+  
+  insertAfter(head,9);
+ insertAfter(head,10);
+  insertAfter(head,11);
+ insertAtBegning(&head,7);
+  insertAtBegning(&head,6);
+ // insertAfterPerticularNode(8,11,head);
+//  deleteAtEnd(head);
+  deleteAtBeg(&head);
+  printList(head);
+  
+ 
+  
+    return 0;
+    
+}

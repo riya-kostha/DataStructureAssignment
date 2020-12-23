@@ -1,0 +1,71 @@
+#include<stdio.h>
+#define max 5
+typedef struct DoubleStack{
+    int top1,top2;
+    int arr[max];
+}Dstack;
+void init(Dstack *stack)
+{
+    stack->top1=-1;
+    stack->top2=max;
+}
+void push1(Dstack *stack,int data)
+{
+   
+    if( stack->top2 == stack->top1 + 1 )
+    {
+        printf("\nStack1 Overflow \n");
+        return;
+    }
+    stack->arr[++(stack->top1)]=data;
+}
+void push2(Dstack *stack,int data)
+{
+   
+    if( stack->top2 == stack->top1 + 1 )
+    {
+        printf("\nStack2 Overflow \n");
+        return;
+    }
+    stack->arr[--(stack->top2)]=data;
+}
+int pop1( Dstack *s)
+{
+    if( s->top1 == -1 )
+    {
+        printf("\nStack1 Underflow");
+        return -1;
+    }
+ 
+    return( s->arr[s->top1--]);
+}
+int pop2( Dstack *s)
+{
+    if( s->top1 == max )
+    {
+        printf("\nStack2 Underflow");
+        return -1;
+    }
+ 
+    return( s->arr[s->top2++]);
+}
+ int main()
+ {
+   
+ 
+    Dstack s;
+ 
+    init(&s);
+ 
+    push1( &s, 10);
+    push1( &s, 20);
+    push1( &s, 30);
+    push2( &s, 40);
+    push2( &s, 50);
+    push2( &s, 60);
+ 
+    printf("%d",pop1(&s));
+    printf(" %d",pop2(&s));
+    
+     return 0;
+ }

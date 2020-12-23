@@ -1,0 +1,54 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct Array{
+    int max;
+    int used;
+    int *memory;
+}Array;
+void initArray(Array* arr)
+{
+    arr->used=0;
+    arr->max=2;
+    arr->memory=malloc(arr->max*sizeof(int));
+}
+void insert(Array *arr,int data)
+{
+    if(arr->used>arr->max)
+    {
+        arr->max*=2;
+        arr->memory=realloc(arr->memory,arr->max*sizeof(int));
+    }
+
+       arr->memory[arr->used++]=data;
+      // ++arr->used;
+    
+}  
+void deleteLast(Array *arr)
+{
+ arr->used--;   
+}
+void deleteArray(Array *arr)
+{
+     free(arr->memory);
+  arr->memory = NULL;
+  arr->used = arr->max =3;
+}
+int main()
+{
+    Array  arr;
+    initArray(&arr);
+    for(int i=1;i<=100;i++)
+    {
+    insert(&arr,i);
+    }
+    deleteLast(&arr);
+    insert(&arr,600);
+     printf("%d ",arr.memory[0]);
+      printf("%d ",arr.memory[1]);
+     printf("%d ",arr.memory[2]);
+     printf("%d ",arr.memory[99]);
+    
+    
+    
+    return 0;
+}
